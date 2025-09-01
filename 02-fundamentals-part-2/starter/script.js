@@ -1,168 +1,139 @@
-// JavaScript Fundamentals Part 2 - Hour 1
+// JavaScript Fundamentals Part 2 - Hour 2
+console.log("=== Hour 2: Arrays and Data Manipulation ===");
 
-////////////////////////////////////
-// Functions - Declarations and Expressions
-console.log("=== FUNCTIONS ===");
+// ====================
+// Practice 1: Personal Arrays
+// ====================
+// 1. hobbies with 3 hobbies
+// 2. numbers with 5 numbers
+// 3. log first and last element
+// 4. change second element in hobbies
+// 5. array with name, age, boolean
 
-// Function declaration
-function logger() {
-  console.log("My name is Jonas");
+let hobbies = ["drawing", "gaming", "cycling"];
+let nums = [5, 12, 23, 44, 99];
+
+console.log("First hobby:", hobbies[0]);
+console.log("Last hobby:", hobbies[hobbies.length - 1]);
+
+hobbies[1] = "reading";
+console.log("Updated hobbies:", hobbies);
+
+let mixed = ["Jian", 21, true];
+console.log("Mixed array:", mixed);
+
+// ====================
+// Practice 2: Fruit Basket
+// ====================
+// Start with ['apple', 'banana']
+// push, unshift, pop, includes, indexOf
+
+let fruits = ["apple", "banana"];
+
+fruits.push("orange");
+fruits.unshift("grape");
+console.log("After push/unshift:", fruits);
+
+fruits.pop();
+console.log("After pop:", fruits);
+
+console.log("Includes apple?", fruits.includes("apple"));
+console.log("Index of banana:", fruits.indexOf("banana"));
+
+// ====================
+// Practice 3: Number Processing
+// ====================
+// Array: [10, 25, 30, 15, 40]
+// 1. double each number with for loop
+// 2. log each number with forEach
+// 3. calculate sum with for loop
+// 4. count numbers > 20
+
+const numbers = [10, 25, 30, 15, 40];
+
+// 1
+let doubled = [];
+for (let i = 0; i < numbers.length; i++) {
+  doubled.push(numbers[i] * 2);
 }
-logger();
-logger();
-logger();
+console.log("Doubled numbers:", doubled);
 
-////////////////////////////////////
-// Functions with Parameters
-function fruitProcessor(apples, oranges) {
-  console.log(apples, oranges);
-  const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
-  return juice;
+// 2
+console.log("Numbers with forEach:");
+numbers.forEach(num => console.log(num));
+
+// 3
+let sum = 0;
+for (let i = 0; i < numbers.length; i++) {
+  sum += numbers[i];
 }
+console.log("Sum of numbers:", sum);
 
-const appleJuice = fruitProcessor(5, 0);
-console.log(appleJuice);
-
-const appleOrangeJuice = fruitProcessor(2, 4);
-console.log(appleOrangeJuice);
-
-////////////////////////////////////
-// Exercise 1: Personal Greeting
-function greetStudent(studentName) {
-  return `Hello ${studentName}, welcome to JavaScript!`;
-}
-console.log(greetStudent("Jian"));
-
-////////////////////////////////////
-// Exercise 2: Simple Calculator
-function addNumbers(a, b) {
-  return a + b;
-}
-function multiplyNumbers(a, b) {
-  return a * b;
-}
-console.log(addNumbers(5, 10));
-console.log(multiplyNumbers(3, 7));
-
-////////////////////////////////////
-// Function Expressions
-const calcAge = function (birthYear) {
-  return 2037 - birthYear;
-};
-const age1 = calcAge(1991);
-console.log(age1);
-
-////////////////////////////////////
-// Parameters vs Arguments
-function calcAge2(birthYear, currentYear) {
-  const age = currentYear - birthYear;
-  return age;
-}
-console.log(calcAge2(1991, 2037));
-console.log(calcAge2(2005, 2037));
-
-////////////////////////////////////
-// Handling Missing Parameters
-function introduce(firstName, lastName, age) {
-  const introduction = `Hi, I'm ${firstName} ${lastName} and I'm ${age} years old.`;
-  return introduction;
-}
-console.log(introduce("Jonas", "Schmedtmann", 46));
-console.log(introduce("Sarah"));
-
-////////////////////////////////////
-// Exercise: Restaurant Bill Calculator
-const calculateTip = function (bill, tipPercent) {
-  return bill * (tipPercent / 100);
-};
-const getTotal = function (bill, tip) {
-  return bill + tip;
-};
-const tip = calculateTip(100, 15);
-const total = getTotal(100, tip);
-console.log(`Tip: $${tip}, Total: $${total}`);
-
-////////////////////////////////////
-// Return Values and Scope
-function calcAge3(birthYear) {
-  return 2037 - birthYear;
-}
-function yearsUntilRetirement(birthYear, firstName) {
-  const age = calcAge3(birthYear);
-  const retirement = 65 - age;
-  if (retirement > 0) {
-    return `${firstName} retires in ${retirement} years`;
-  } else {
-    return `${firstName} has already retired!`;
+// 4
+let countAbove20 = 0;
+for (let i = 0; i < numbers.length; i++) {
+  if (numbers[i] > 20) {
+    countAbove20++;
   }
 }
-console.log(yearsUntilRetirement(1991, "Jonas"));
-console.log(yearsUntilRetirement(1950, "Mike"));
+console.log("Count > 20:", countAbove20);
 
-////////////////////////////////////
-// Scope Examples
-const globalVar = "I am global";
-function testScope() {
-  const localVar = "I am local";
-  console.log(globalVar);
-  console.log(localVar);
-}
-testScope();
-console.log(globalVar);
+// ====================
+// Coding Challenge #2: Student Grade Manager
+// ====================
 
-const userName = "Jonas";
-function createWelcomeMessage(user) {
-  const message = `Welcome back, ${user}!`;
-  const timestamp = new Date().toLocaleTimeString();
-  return `${message} Current time: ${timestamp}`;
-}
-console.log(createWelcomeMessage(userName));
+const grades = [78, 85, 92, 67, 88, 95, 73, 82];
 
-////////////////////////////////////
-// Exercise: Temperature Converter System
-function celsiusToFahrenheit(celsius) {
-  return (celsius * 9) / 5 + 32;
-}
-function fahrenheitToCelsius(fahrenheit) {
-  return ((fahrenheit - 32) * 5) / 9;
-}
-function describeTemperature(temp, unit) {
-  if (unit === "C") {
-    if (temp > 30) return "Hot";
-    if (temp >= 20) return "Warm";
-    if (temp >= 10) return "Cool";
-    return "Cold";
-  } else if (unit === "F") {
-    if (temp > 86) return "Hot";
-    if (temp >= 68) return "Warm";
-    if (temp >= 50) return "Cool";
-    return "Cold";
+// Function to calculate average
+function calculateAverage(grades) {
+  let total = 0;
+  for (let i = 0; i < grades.length; i++) {
+    total += grades[i];
   }
+  return total / grades.length;
 }
-console.log(celsiusToFahrenheit(25));
-console.log(fahrenheitToCelsius(86));
-console.log(describeTemperature(35, "C"));
-console.log(describeTemperature(55, "F"));
 
-////////////////////////////////////
-// Coding Challenge #1: Gymnastics
-function calcAverage(score1, score2, score3) {
-  return (score1 + score2 + score3) / 3;
-}
-function checkWinner(avgDolphins, avgKoalas) {
-  if (avgDolphins >= 2 * avgKoalas) {
-    return `Dolphins win (${avgDolphins} vs. ${avgKoalas})`;
-  } else if (avgKoalas >= 2 * avgDolphins) {
-    return `Koalas win (${avgKoalas} vs. ${avgDolphins})`;
-  } else {
-    return `No team wins! Dolphins: ${avgDolphins}, Koalas: ${avgKoalas}`;
+// Function to find highest grade
+function findHighestGrade(grades) {
+  let highest = grades[0];
+  for (let i = 1; i < grades.length; i++) {
+    if (grades[i] > highest) {
+      highest = grades[i];
+    }
   }
+  return highest;
 }
-// Test Data 1
-let scoreDolphins = calcAverage(44, 23, 71);
-let scoreKoalas = calcAverage(65, 54, 49);
-console.log(checkWinner(scoreDolphins, scoreKoalas));
-// Test Data 2
-scoreDolphins = calcAverage(85, 54, 41);
-scoreKoalas = calcAverage(23, 34, 27);
-console.log(checkWinner(scoreDolphins, scoreKoalas));
+
+// Function to find lowest grade
+function findLowestGrade(grades) {
+  let lowest = grades[0];
+  for (let i = 1; i < grades.length; i++) {
+    if (grades[i] < lowest) {
+      lowest = grades[i];
+    }
+  }
+  return lowest;
+}
+
+// Function to count passing students
+function countPassing(grades, passingGrade) {
+  let count = 0;
+  for (let i = 0; i < grades.length; i++) {
+    if (grades[i] >= passingGrade) {
+      count++;
+    }
+  }
+  return count;
+}
+
+// Generate complete report
+const average = calculateAverage(grades);
+const highest = findHighestGrade(grades);
+const lowest = findLowestGrade(grades);
+const passing = countPassing(grades, 70);
+
+console.log("=== GRADE REPORT ===");
+console.log(`Average: ${average}`);
+console.log(`Highest: ${highest}`);
+console.log(`Lowest: ${lowest}`);
+console.log(`Passing students: ${passing} out of ${grades.length}`);
