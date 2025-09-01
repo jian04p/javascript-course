@@ -3,11 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScript Fundamentals - Part 2</title>
+  <title>Interactive DOM Fun</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .players {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .player {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      min-width: 150px;
+      transition: all 0.3s ease;
+    }
+
+    .player h2 {
+      margin: 0 0 10px 0;
+    }
+
+    .score {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .score-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff7e5f;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #ff7e5f;
+      color: white;
+      margin: 5px;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #feb47b;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      width: 80px;
+      text-align: center;
+    }
+
+    .message, .winner {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .winner {
+      display: none;
+      font-weight: bold;
+      color: #4caf50;
+    }
+  </style>
 </head>
 <body>
-  <h1>JavaScript Fundamentals - Hour 2: Arrays</h1>
-  <p>Open the console (F12) to see results.</p>
+  <h1>Interactive DOM Fun</h1>
+
+  <div class="players">
+    <div class="player player-1">
+      <h2>Player 1</h2>
+      <div class="score" id="score-1">0</div>
+      <button class="btn-add" data-player="1">+1 Point</button>
+    </div>
+    <div class="player player-2">
+      <h2>Player 2</h2>
+      <div class="score" id="score-2">0</div>
+      <button class="btn-add" data-player="2">+1 Point</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="btn-reset">🔄 Reset Game</button>
+    <input type="number" id="winning-score" value="5" min="1" max="20" />
+    <label for="winning-score">Points to Win</label>
+  </div>
+
+  <p class="message">Start interacting!</p>
+  <p class="winner">🎉 <span class="winner-name">Player</span> Wins!</p>
+
   <script src="script.js"></script>
 </body>
 </html>

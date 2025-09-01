@@ -1,129 +1,101 @@
-// JavaScript Fundamentals Part 2 - Hour 3
-console.log("=== OBJECTS & DATA STRUCTURES ===");
+// Selecting DOM Elements
+const message = document.querySelector(".message");
+const button = document.querySelector("#btn");
+const heading = document.querySelector("h1");
+const input = document.querySelector(".guess");
+const scoreValue = document.querySelector(".score-value");
 
-// ====================
-// Practice 1: Personal Object
-// ====================
+// Exercise 1: Element Selection Practice
+const guessInput = document.querySelector(".guess");
+console.log(guessInput);
 
-const book = {
-  title: "The Pragmatic Programmer",
-  author: "Andrew Hunt",
-  pages: 320,
-  isRead: false,
-};
+// Method 1: querySelector
+const buttonQuery = document.querySelector("#btn");
+// Method 2: getElementById
+const buttonById = document.getElementById("btn");
+console.log(buttonQuery === buttonById); // Should be true
 
-const playlist = {
-  name: "Coding Jams",
-  creator: "Jian",
-  songs: ["Song 1", "Song 2", "Song 3"],
-  genre: "Lo-Fi",
-};
+// Select all spans
+const allSpans = document.querySelectorAll("span");
+console.log(allSpans);
 
-// Access properties
-console.log(book.title);
-console.log(playlist["creator"]);
+// Select first span
+const firstSpan = document.querySelector("span");
+console.log(firstSpan.textContent);
 
-// Add new properties
-book.language = "English";
-playlist.yearCreated = 2024;
+// Exercise 2: Content and Style Practice
+heading.textContent = "Philip";
 
-// Modify existing properties
-book.isRead = true;
-playlist.genre = "Chill-Hop";
+button.style.backgroundColor = "blue";
+button.style.color = "white";
+button.style.padding = "10px 20px";
+button.style.border = "none";
+button.style.borderRadius = "5px";
 
-console.log(book);
-console.log(playlist);
+input.placeholder = "Type something cool...";
+message.innerHTML = "This is <strong>bold</strong> text from JavaScript!";
 
-// ====================
-// Practice 2: Calculator Object
-// ====================
+scoreValue.style.fontSize = "2rem";
+scoreValue.style.color = "green";
+scoreValue.style.fontWeight = "bold";
 
-const calculator = {
-  num1: 10,
-  num2: 5,
-  operator: "+",
+// Event Listeners - User Interaction
+let clickCount = 0;
 
-  add: function () {
-    return this.num1 + this.num2;
-  },
+button.addEventListener("click", function () {
+  clickCount++;
+  button.textContent = `Clicked ${clickCount} times`;
+  button.style.backgroundColor = `hsl(${clickCount * 30}, 70%, 50%)`;
+});
 
-  subtract: function () {
-    return this.num1 - this.num2;
-  },
+input.addEventListener("input", function () {
+  const userText = input.value;
+  message.textContent = `You typed: ${userText}`;
+  message.style.fontSize = `${userText.length + 10}px`;
+});
 
-  multiply: function () {
-    return this.num1 * this.num2;
-  },
+input.addEventListener("keydown", function (event) {
+  console.log(`Key pressed: ${event.key}`);
+  if (event.key === "Enter") {
+    message.textContent = `You pressed Enter! Text was: ${input.value}`;
+    input.value = "";
+  }
+});
 
-  divide: function () {
-    return this.num1 / this.num2;
-  },
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    message.textContent = "Reset with Escape key!";
+    input.value = "";
+    clickCount = 0;
+    button.textContent = "Click Me!";
+  }
+});
 
-  calculate: function () {
-    if (this.operator === "+") return this.add();
-    if (this.operator === "-") return this.subtract();
-    if (this.operator === "*") return this.multiply();
-    if (this.operator === "/") return this.divide();
-    return "Invalid operator";
-  },
+// Exercise 3: Event Listener Practice
+heading.addEventListener("click", function () {
+  heading.style.color = "purple";
+});
 
-  getResult: function () {
-    return `${this.num1} ${this.operator} ${this.num2} = ${this.calculate()}`;
-  },
-};
+input.addEventListener("input", function () {
+  const count = input.value.length;
+  message.textContent = `Character count: ${count}`;
+});
 
-// Test calculator
-console.log(calculator.calculate());
-console.log(calculator.getResult());
+document.addEventListener("keydown", function (event) {
+  if (event.key === " ") {
+    message.textContent = "Spacebar pressed!";
+  }
+});
 
-// ====================
-// Coding Challenge #3: User Profile System
-// ====================
+button.addEventListener("mouseover", function () {
+  button.textContent = "Hovering!";
+});
 
-const user = {
-  firstName: "Sarah",
-  lastName: "Johnson",
-  birthYear: 1995,
-  location: "New York",
-  interests: ["photography", "travel", "coding"],
-  friends: [
-    { name: "Michael", status: "active" },
-    { name: "Emma", status: "inactive" },
-    { name: "David", status: "active" },
-  ],
-  isActive: true,
+button.addEventListener("mouseout", function () {
+  button.textContent = "Click Me!";
+});
 
-  calcAge: function () {
-    const currentYear = new Date().getFullYear();
-    this.age = currentYear - this.birthYear;
-    return this.age;
-  },
-
-  addFriend: function (name, status = "active") {
-    this.friends.push({ name: name, status: status });
-    return this.friends.length;
-  },
-
-  getActiveFriends: function () {
-    return this.friends.filter(friend => friend.status === "active").length;
-  },
-
-  toggleStatus: function () {
-    this.isActive = !this.isActive;
-    return this.isActive;
-  },
-
-  getSummary: function () {
-    return `${this.firstName} ${this.lastName} is a ${this.calcAge()}-year old from ${this.location}.
-Status: ${this.isActive ? "Active" : "Inactive"}
-Interests: ${this.interests.join(", ")}
-Friends: ${this.friends.length} total, ${this.getActiveFriends()} active.`;
-  },
-};
-
-// Test user profile system
-console.log(user.getSummary());
-user.addFriend("Alex", "active");
-user.toggleStatus();
-console.log("\nAfter updates:");
-console.log(user.getSummary());
+heading.addEventListener("dblclick", function () {
+  heading.textContent = "Double-clicked!";
+  heading.style.backgroundColor = "lightblue";
+});
