@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guess My Number - Hour 3</title>
+  <title>Guess My Number - Hour 4</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="game">
-    <h1>🎯 Guess My Number!</h1>
+  <div class="container">
+    <h1>🔢 Guess My Number!</h1>
     <p class="message">Start guessing...</p>
-    
-    <input type="number" class="guess" placeholder="1-20" />
+    <div class="number">?</div>
+
+    <input type="number" class="guess" placeholder="Enter 1-20" />
     <div>
-      <button class="check">Check!</button>
-      <button class="again">Again!</button>
+      <button class="check">Check</button>
+      <button class="again">Play Again</button>
     </div>
 
-    <p>💯 Score: <span class="score">20</span></p>
-    <p>🥇 Highscore: <span class="highscore">0</span></p>
-    <p>🔢 Secret Number: <span class="number">?</span></p>
+    <div class="stats">
+      <p>💯 Score: <span class="score">20</span></p>
+      <p>🥇 Highscore: <span class="highscore">0</span></p>
+    </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
