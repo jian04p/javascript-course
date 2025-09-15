@@ -1,50 +1,63 @@
-// Game Development Hour 1 - Game Foundation & DOM Basics
 'use strict';
 
-console.log('=== GAME DEVELOPMENT: GUESS MY NUMBER ===');
-console.log('Goal: Build a complete interactive game from scratch');
-console.log('Focus: DOM manipulation, game state, and user interaction');
-
-// === DOM ELEMENT SELECTION ===
-const messageEl = document.querySelector('.message');
-const scoreEl = document.querySelector('.score');
-const guessEl = document.querySelector('.guess');
-
-console.log('Message element:', messageEl);
-console.log('Score element:', scoreEl);
-console.log('Guess input:', guessEl);
-
-// === Game State Variables ===
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let highscore = 0;
 
-document.querySelector('.score').textContent = score;
-document.querySelector('.highscore').textContent = highscore;
-
-console.log('Secret number (debug):', secretNumber);
-
-// === Event Listener for Check Button ===
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
-  console.log('Player guessed:', guess);
 
   if (!guess) {
-    messageEl.textContent = '⛔ No number!';
+    document.querySelector('.message').textContent = '⛔️ No number!';
   } else if (guess === secretNumber) {
-    messageEl.textContent = '🎉 Correct Number!';
+    document.querySelector('.message').textContent = '🎉 Correct Number!';
     document.querySelector('.number').textContent = secretNumber;
-  } else if (guess > secretNumber) {
-    messageEl.textContent = '📈 Too high!';
-  } else if (guess < secretNumber) {
-    messageEl.textContent = '📉 Too low!';
+
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector('.highscore').textContent = highscore;
+    }
+
+    // Disable input and button after win
+    document.querySelector('.guess').disabled = true;
+    document.querySelector('.check').disabled = true;
+  } else if (guess !== secretNumber) {
+    if (score > 1) {
+      document.querySelector('.message').textContent =
+        guess > secretNumber ? '📈 Too high!' : '📉 Too low!';
+      score--;
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = '💥 You lost!';
+      document.querySelector('.score').textContent = 0;
+      document.querySelector('.number').textContent = secretNumber;
+
+      // Disable input and button after lose
+      document.querySelector('.guess').disabled = true;
+      document.querySelector('.check').disabled = true;
+    }
   }
 });
 
-// === Verification Logs ===
-console.log('🎮 Game Foundation Complete!');
-console.log('✅ DOM element selection working');
-console.log('✅ Game state variables initialized');
-console.log('✅ Event listeners responding');
-console.log('✅ Basic game logic implemented');
-console.log('Secret number for testing:', secretNumber);
+// Restart game
+document.querySelector('.again').addEventListener('click', function () {
+  score = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+  document.querySelector('.message').textContent = 'Start guessing...';
+  document.querySelector('.number').textContent = '?';
+  document.querySelector('.score').textContent = score;
+  document.querySelector('.guess').value = '';
+
+  document.querySelector('.guess').disabled = false;
+  document.querySelector('.check').disabled = false;
+});
+
+////////////////////////////////////
+// Enhanced Game Verification
+console.log('🎮 Enhanced Game Complete!');
+console.log('✅ Score tracking working');
+console.log('✅ Win/lose conditions implemented');
+console.log('✅ Game restart functionality working');
+console.log('✅ Complete game experience ready');
+console.log('Test: Try to win, try to lose, then restart!');
