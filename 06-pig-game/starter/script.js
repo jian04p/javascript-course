@@ -1,6 +1,6 @@
 'use strict';
 
-// Selecting elements
+// Select elements
 const player0El = document.querySelector('.player--0');
 const player1El = document.querySelector('.player--1');
 const score0El = document.getElementById('score--0');
@@ -13,7 +13,6 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
-// Starting conditions
 let scores, currentScore, activePlayer, playing;
 
 const init = function () {
@@ -28,12 +27,14 @@ const init = function () {
   current1El.textContent = 0;
 
   diceEl.classList.add('hidden');
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
 };
+
 init();
 
-// Switch player function
 const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   currentScore = 0;
@@ -46,7 +47,6 @@ const switchPlayer = function () {
 btnRoll.addEventListener('click', function () {
   if (playing) {
     const dice = Math.trunc(Math.random() * 6) + 1;
-
     diceEl.classList.remove('hidden');
     diceEl.src = `dice-${dice}.png`;
 
@@ -62,16 +62,25 @@ btnRoll.addEventListener('click', function () {
 
 // Hold score
 btnHold.addEventListener('click', function () {
-  if (playing && currentScore > 0) {
+  if (playing) {
     scores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
-    switchPlayer();
+
+    if (scores[activePlayer] >= 100) {
+      playing = false;
+      diceEl.classList.add('hidden');
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add('player--winner');
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove('player--active');
+    } else {
+      switchPlayer();
+    }
   }
 });
 
-// Debugging helpers
-console.log('Scores:', scores);
-console.log('Current Score:', currentScore);
-console.log('Active Player:', activePlayer);
-console.log('Playing:', playing);
+// Reset game
+btnNew.addEventListener('click', init);
