@@ -6,17 +6,23 @@ const overlayEl = document.querySelector('.overlay');
 const btnCloseModalEl = document.querySelector('.close-modal');
 const btnsOpenModalEl = document.querySelectorAll('.show-modal');
 
-console.log('Open buttons:', btnsOpenModalEl.length);
+// Focus management
+let lastFocusedButton = null;
 
 // Helper functions
 const openModal = function () {
+  lastFocusedButton = document.activeElement;
   modalEl.classList.remove('hidden');
   overlayEl.classList.remove('hidden');
+  modalEl.focus();
 };
 
 const closeModal = function () {
   modalEl.classList.add('hidden');
   overlayEl.classList.add('hidden');
+  if (lastFocusedButton) {
+    lastFocusedButton.focus();
+  }
 };
 
 // Event listeners
@@ -24,4 +30,14 @@ btnsOpenModalEl.forEach(btn => btn.addEventListener('click', openModal));
 btnCloseModalEl.addEventListener('click', closeModal);
 overlayEl.addEventListener('click', closeModal);
 
-console.log('Modal project ready!');
+// Keyboard events
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && !modalEl.classList.contains('hidden')) {
+    closeModal();
+  }
+});
+
+// Accessibility attributes
+modalEl.setAttribute('role', 'dialog');
+modalEl.setAttribute('aria-modal', 'true');
+btnCloseModalEl.setAttribute('aria-label', 'Close modal');
